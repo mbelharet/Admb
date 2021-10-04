@@ -1,0 +1,4 @@
+**/*.swp
+outputs
+**/*.log
+apecosm_size
