@@ -2,3 +2,16 @@
 outputs
 **/*.log
 apecosm_size
+**/*.cov
+**/*.dep
+**/*.hes
+**/*.bar
+**/*.cor
+**/*.eva
+**/*.htp
+**/*.obj
+**/*.par
+**/*.std
+**/*.bin
+
+

@@ -1,0 +1,46 @@
+#main_path /home/belharet/Bureau/Admb/admb_apecosm/new_version/migrants
+/media/belharet/HD_belharet/Optimization_admb
+#project
+MALASPINA
+#nb_clstr 40/302/342   536
+123
+#bottom
+100
+#zone
+all
+#Tref
+298.15
+#EPS
+  1.e-35
+#p / daylength coefficient
+ 0.833
+#nfactor  //1e-6
+# 1.e-6
+#DzPHY
+1.0000e-11
+#EYE_DIAM_ALLOM1
+#1
+#len
+0.03 0.05 0.07 0.09 0.11 0.13 0.15 0.17 0.19
+#SIGM_TCOR0
+#1.8450e-01
+#SIGM_LIGHT1
+#6.6039e+01
+#OPT_LIGHT1
+#4.6332e+01
+#ADVz1
+#3.8155e+00
+#DIFFz1
+#2.0000e+02
+#nb_site_t
+124
+#a1
+5.
+#a2
+0.05
+#rho1
+3.
+#rho2
+100.
+#gamma
+-1.
