@@ -49,6 +49,7 @@ DATA_SECTION
   init_number rho1
   init_number rho2
   init_number gamma
+  init_number nb_groups
 
  LOC_CALCS
     L_size = len.size();
@@ -110,16 +111,16 @@ PARAMETER_SECTION
    vector light2(1,bottom)
    vector temper_pref(1,bottom)
    vector temper_pref_epi(1,bottom)
-   matrix oxy_pref(1,3,1,bottom)
-   4darray light_pref(1,2,1,3,1,bottom,1,L_size)
+   matrix oxy_pref(1,nb_groups,1,bottom)
+   4darray light_pref(1,2,1,nb_groups,1,bottom,1,L_size)
    matrix f_food(1,2,1,bottom)
-   4darray habitat_env(1,2,1,3,1,bottom,1,L_size)
-   4darray profile(1,2,1,3,1,bottom,1,L_size)
-   3darray profiletot(1,2,1,3,1,L_size)
-   4darray profile_norm(1,2,1,3,1,bottom,1,L_size)
-   3darray prof_mod_g(1,2,1,3,1,bottom)
-   3darray sum_phi_p(1,2,1,3,1,bottom)
-   matrix sum_sum_phi_p(1,2,1,3)
+   4darray habitat_env(1,2,1,nb_groups,1,bottom,1,L_size)
+   4darray profile(1,2,1,nb_groups,1,bottom,1,L_size)
+   3darray profiletot(1,2,1,nb_groups,1,L_size)
+   4darray profile_norm(1,2,1,nb_groups,1,bottom,1,L_size)
+   3darray prof_mod_g(1,2,1,nb_groups,1,bottom)
+   3darray sum_phi_p(1,2,1,nb_groups,1,bottom)
+   matrix sum_sum_phi_p(1,2,1,nb_groups)
    
 
    init_bounded_number OXYRESP2(0.,100,-1); //WOA (0.,100,1)
@@ -147,14 +148,14 @@ PARAMETER_SECTION
    init_bounded_number a_o2(5,5,-1); //(1,10,1);
 
    init_bounded_number EYE_DIAM_ALLOM1(0.,0.,-1)
-   init_bounded_number EYE_DIAM_ALLOM2(0.0,0.5,1)
-   init_bounded_number EYE_DIAM_ALLOM3(0.0,0.5,1)
+   init_bounded_number EYE_DIAM_ALLOM2(0.0,0.5,-1)
+   init_bounded_number EYE_DIAM_ALLOM3(0.0,0.5,-1)
 
-   init_bounded_number SIGM_TCOR0(0.01,1,1)
-   init_bounded_number SIGM_LIGHT1(1e-2,1e4,1)
-   init_bounded_number OPT_LIGHT1(1e-2,1e3,1)
-   init_bounded_number ADVz1(0.1,100,1)
-   init_bounded_number DIFFz1(0.01,200,1)
+   init_bounded_number SIGM_TCOR0(0.01,1,-1)
+   init_bounded_number SIGM_LIGHT1(1e-2,1e4,-1)
+   init_bounded_number OPT_LIGHT1(1e-2,1e3,-1)
+   init_bounded_number ADVz1(0.1,100,-1)
+   init_bounded_number DIFFz1(0.01,200,-1)
 
  LOC_CALCS
     ivector ph(1,nb_clstr);
@@ -174,17 +175,17 @@ PARAMETER_SECTION
 
       
       
-   vector SIGM_LIGHT(1,3)
-   vector OPT_LIGHT(1,3)
-   vector ADVz(1,3)
-   vector DIFFz(1,3)
-   vector EYE_DIAM_ALLOM(1,3)
-   matrix ratio_adv_diff(1,3,1,L_size)
-   matrix diffz(1,3,1,L_size)
-   matrix ratio_adv_diff2(1,3,1,L_size)
+   vector SIGM_LIGHT(1,nb_groups)
+   vector OPT_LIGHT(1,nb_groups)
+   vector ADVz(1,nb_groups)
+   vector DIFFz(1,nb_groups)
+   vector EYE_DIAM_ALLOM(1,nb_groups)
+   matrix ratio_adv_diff(1,nb_groups,1,L_size)
+   matrix diffz(1,nb_groups,1,L_size)
+   matrix ratio_adv_diff2(1,nb_groups,1,L_size)
    vector OXYRESP(1,2)
    vector OXYLIM(1,2)
-   matrix eyesurf(1,3,1,L_size)
+   matrix eyesurf(1,nb_groups,1,L_size)
    matrix J(1,2,1,nb_clstr)
 
 
@@ -224,18 +225,28 @@ BETWEEN_PHASES_SECTION
 
 PROCEDURE_SECTION
  //f=0.;
-
+  
   OPT_LIGHT[1] = OPT_LIGHT1;
   OPT_LIGHT[2] = OPT_LIGHT2;
   OPT_LIGHT[3] = OPT_LIGHT3;
+  OPT_LIGHT[4] = OPT_LIGHT4;
+  OPT_LIGHT[5] = OPT_LIGHT5;
+
   SIGM_LIGHT[1] = SIGM_LIGHT1;
   SIGM_LIGHT[2] = SIGM_LIGHT2;
   SIGM_LIGHT[3] = SIGM_LIGHT3;
+  SIGM_LIGHT[4] = SIGM_LIGHT4;
+  SIGM_LIGHT[5] = SIGM_LIGHT5;
 
   OXYRESP[1] = OXYRESP2;
   OXYRESP[2] = OXYRESP3;
+  OXYRESP[3] = OXYRESP4;
+  OXYRESP[4] = OXYRESP5;
+
   OXYLIM[1] = OXYLIM2;
   OXYLIM[2] = OXYLIM3;
+  OXYLIM[3] = OXYLIM4;
+  OXYLIM[4] = OXYLIM5;
 
   ADVz[1] = ADVz1;
   ADVz[2] = ADVz2;
