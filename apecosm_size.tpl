@@ -122,33 +122,33 @@ PARAMETER_SECTION
    matrix sum_sum_phi_p(1,2,1,3)
    
 
-   init_bounded_number OXYRESP2(0.,100,-1); //WOA (0.,100,1)
-   init_bounded_number OXYLIM2(0.1,3,-1); // WOA (0,3,1)
+   init_bounded_number OXYRESP2(0.,100,1); //WOA (0.,100,1)
+   init_bounded_number OXYLIM2(0.01,1,1); // WOA (0,3,1)
    init_bounded_number OXYRESP3(0.,100,-1); //WOA (0.,100,-1)
    init_bounded_number OXYLIM3(0.,1,-1); 
    init_bounded_number Ta(4000,7000,-1);
 
-   init_bounded_number SIGM_LIGHT2(1e-7,1e-3,1) // WOA  (1.e-8,1.e-1,1) ; NEMO (1e-8,1e-2,1)
-   init_bounded_number SIGM_LIGHT3(1e-7,1e-3,1) // WOA  (1.e-14,1.e-7,1) ; NEMO (1e-14,1e-7,1)
-   init_bounded_number OPT_LIGHT2(1.e-7,1.e-3,1) // WOA (1.e-8,1.e-1) ; NEMO (1.e-8,1.e-2,1)
-   init_bounded_number OPT_LIGHT3(1.e-7,1.e-3,1) // WOA  (1.e-14,1.e-7,1); NEMO (1.e-14,1.e-7,1)
+   init_bounded_number SIGM_LIGHT2(1e-7,1e-2,1) // WOA  (1.e-8,1.e-1,1) ; NEMO (1e-8,1e-2,1)
+   init_bounded_number SIGM_LIGHT3(1e-7,1e-2,1) // WOA  (1.e-14,1.e-7,1) ; NEMO (1e-14,1e-7,1)
+   init_bounded_number OPT_LIGHT2(1.e-7,1.e-2,1) // WOA (1.e-8,1.e-1) ; NEMO (1.e-8,1.e-2,1)
+   init_bounded_number OPT_LIGHT3(1.e-7,1.e-2,1) // WOA  (1.e-14,1.e-7,1); NEMO (1.e-14,1.e-7,1)
 
    init_bounded_number ADVz3(1e-2,100,1) //WOA (1e-1,100,1) ; NEMO (1e-2,100,1)
    init_bounded_number ADVz2(1e-2,100,1) //WOA (1e-1,100,1); NEMO (1e-2,100,1)
-   init_bounded_number DIFFz3(1e-2,100,1)//WOA (1e-1,200,1); NEMO (1e-2,200,1)
-   init_bounded_number DIFFz2(1e-2,100,1) //WOA (1e-1,200,1); NEMO (1e-2,200,1)
+   init_bounded_number DIFFz3(1e-2,200,1)//WOA (1e-1,200,1); NEMO (1e-2,200,1)
+   init_bounded_number DIFFz2(1e-2,200,1) //WOA (1e-1,200,1); NEMO (1e-2,200,1)
 
    init_bounded_number c1(0,2,-1) // WOA (0,2,1) ; NEMO (0,2,1):1
 
-   init_bounded_number c2(0,2,-1) //WOA (0,2,1) ; NEMO (0,2,1)
+   init_bounded_number c2(0,2,-1) //WOA (0,2,1) ; NEMO (0,2,1) 
 
    init_bounded_number Coxy(0,5,-1) //WOA (0,1,1)
    init_bounded_number ko2_max(0,2,-1);  //(0,2,1);
    init_bounded_number a_o2(5,5,-1); //(1,10,1);
 
    init_bounded_number EYE_DIAM_ALLOM1(0.,0.,-1)
-   init_bounded_number EYE_DIAM_ALLOM2(0.0,0.5,1)
-   init_bounded_number EYE_DIAM_ALLOM3(0.0,0.5,1)
+   init_bounded_number EYE_DIAM_ALLOM2(0.0,0.5,-1)
+   init_bounded_number EYE_DIAM_ALLOM3(0.0,0.5,-1)
 
    init_bounded_number SIGM_TCOR0(0.01,1,1)
    init_bounded_number SIGM_LIGHT1(1e-2,1e4,1)

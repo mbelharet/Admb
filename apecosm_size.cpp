@@ -140,27 +140,27 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   #ifndef NO_AD_INITIALIZE
     sum_sum_phi_p.initialize();
   #endif
-  OXYRESP2.allocate(0.,100,-1,"OXYRESP2");
-  OXYLIM2.allocate(0.1,3,-1,"OXYLIM2");
+  OXYRESP2.allocate(0.,100,1,"OXYRESP2");
+  OXYLIM2.allocate(0.01,1,1,"OXYLIM2");
   OXYRESP3.allocate(0.,100,-1,"OXYRESP3");
   OXYLIM3.allocate(0.,1,-1,"OXYLIM3");
   Ta.allocate(4000,7000,-1,"Ta");
-  SIGM_LIGHT2.allocate(1e-7,1e-3,1,"SIGM_LIGHT2");
-  SIGM_LIGHT3.allocate(1e-7,1e-3,1,"SIGM_LIGHT3");
-  OPT_LIGHT2.allocate(1.e-7,1.e-3,1,"OPT_LIGHT2");
-  OPT_LIGHT3.allocate(1.e-7,1.e-3,1,"OPT_LIGHT3");
+  SIGM_LIGHT2.allocate(1e-7,1e-2,1,"SIGM_LIGHT2");
+  SIGM_LIGHT3.allocate(1e-7,1e-2,1,"SIGM_LIGHT3");
+  OPT_LIGHT2.allocate(1.e-7,1.e-2,1,"OPT_LIGHT2");
+  OPT_LIGHT3.allocate(1.e-7,1.e-2,1,"OPT_LIGHT3");
   ADVz3.allocate(1e-2,100,1,"ADVz3");
   ADVz2.allocate(1e-2,100,1,"ADVz2");
-  DIFFz3.allocate(1e-2,100,1,"DIFFz3");
-  DIFFz2.allocate(1e-2,100,1,"DIFFz2");
+  DIFFz3.allocate(1e-2,200,1,"DIFFz3");
+  DIFFz2.allocate(1e-2,200,1,"DIFFz2");
   c1.allocate(0,2,-1,"c1");
   c2.allocate(0,2,-1,"c2");
   Coxy.allocate(0,5,-1,"Coxy");
   ko2_max.allocate(0,2,-1,"ko2_max");
   a_o2.allocate(5,5,-1,"a_o2");
   EYE_DIAM_ALLOM1.allocate(0.,0.,-1,"EYE_DIAM_ALLOM1");
-  EYE_DIAM_ALLOM2.allocate(0.0,0.5,1,"EYE_DIAM_ALLOM2");
-  EYE_DIAM_ALLOM3.allocate(0.0,0.5,1,"EYE_DIAM_ALLOM3");
+  EYE_DIAM_ALLOM2.allocate(0.0,0.5,-1,"EYE_DIAM_ALLOM2");
+  EYE_DIAM_ALLOM3.allocate(0.0,0.5,-1,"EYE_DIAM_ALLOM3");
   SIGM_TCOR0.allocate(0.01,1,1,"SIGM_TCOR0");
   SIGM_LIGHT1.allocate(1e-2,1e4,1,"SIGM_LIGHT1");
   OPT_LIGHT1.allocate(1e-2,1e3,1,"OPT_LIGHT1");
