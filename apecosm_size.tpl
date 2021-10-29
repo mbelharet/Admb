@@ -123,15 +123,15 @@ PARAMETER_SECTION
    
 
    init_bounded_number OXYRESP2(0.,100,1); //WOA (0.,100,1)
-   init_bounded_number OXYLIM2(0.01,1,1); // WOA (0,3,1)
+   init_bounded_number OXYLIM2(0.01,1.5,1); // WOA (0,3,1)
    init_bounded_number OXYRESP3(0.,100,-1); //WOA (0.,100,-1)
    init_bounded_number OXYLIM3(0.,1,-1); 
    init_bounded_number Ta(4000,7000,-1);
 
    init_bounded_number SIGM_LIGHT2(1e-7,1e-2,1) // WOA  (1.e-8,1.e-1,1) ; NEMO (1e-8,1e-2,1)
-   init_bounded_number SIGM_LIGHT3(1e-7,1e-2,1) // WOA  (1.e-14,1.e-7,1) ; NEMO (1e-14,1e-7,1)
+   init_bounded_number SIGM_LIGHT3(1e-8,1e-2,1) // WOA  (1.e-14,1.e-7,1) ; NEMO (1e-14,1e-7,1)
    init_bounded_number OPT_LIGHT2(1.e-7,1.e-2,1) // WOA (1.e-8,1.e-1) ; NEMO (1.e-8,1.e-2,1)
-   init_bounded_number OPT_LIGHT3(1.e-7,1.e-2,1) // WOA  (1.e-14,1.e-7,1); NEMO (1.e-14,1.e-7,1)
+   init_bounded_number OPT_LIGHT3(1.e-8,1.e-2,1) // WOA  (1.e-14,1.e-7,1); NEMO (1.e-14,1.e-7,1)
 
    init_bounded_number ADVz3(1e-2,100,1) //WOA (1e-1,100,1) ; NEMO (1e-2,100,1)
    init_bounded_number ADVz2(1e-2,100,1) //WOA (1e-1,100,1); NEMO (1e-2,100,1)
