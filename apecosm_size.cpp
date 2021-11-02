@@ -52,6 +52,7 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   rho1.allocate("rho1");
   rho2.allocate("rho2");
   gamma.allocate("gamma");
+  ngroups.allocate("ngroups");
     L_size = len.size();
     pathway = main_path + "/data/" + project + "/"; //  + sec_path + project + "/";
     pathway_o = main_path + "/outputs/" + project + "/";
@@ -100,11 +101,11 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   #ifndef NO_AD_INITIALIZE
     temper_pref_epi.initialize();
   #endif
-  oxy_pref.allocate(1,3,1,bottom,"oxy_pref");
+  oxy_pref.allocate(1,ngroups,1,bottom,"oxy_pref");
   #ifndef NO_AD_INITIALIZE
     oxy_pref.initialize();
   #endif
-  light_pref.allocate(1,2,1,3,1,bottom,1,L_size,"light_pref");
+  light_pref.allocate(1,2,1,ngroups,1,bottom,1,L_size,"light_pref");
   #ifndef NO_AD_INITIALIZE
     light_pref.initialize();
   #endif
@@ -112,31 +113,31 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   #ifndef NO_AD_INITIALIZE
     f_food.initialize();
   #endif
-  habitat_env.allocate(1,2,1,3,1,bottom,1,L_size,"habitat_env");
+  habitat_env.allocate(1,2,1,ngroups,1,bottom,1,L_size,"habitat_env");
   #ifndef NO_AD_INITIALIZE
     habitat_env.initialize();
   #endif
-  profile.allocate(1,2,1,3,1,bottom,1,L_size,"profile");
+  profile.allocate(1,2,1,ngroups,1,bottom,1,L_size,"profile");
   #ifndef NO_AD_INITIALIZE
     profile.initialize();
   #endif
-  profiletot.allocate(1,2,1,3,1,L_size,"profiletot");
+  profiletot.allocate(1,2,1,ngroups,1,L_size,"profiletot");
   #ifndef NO_AD_INITIALIZE
     profiletot.initialize();
   #endif
-  profile_norm.allocate(1,2,1,3,1,bottom,1,L_size,"profile_norm");
+  profile_norm.allocate(1,2,1,ngroups,1,bottom,1,L_size,"profile_norm");
   #ifndef NO_AD_INITIALIZE
     profile_norm.initialize();
   #endif
-  prof_mod_g.allocate(1,2,1,3,1,bottom,"prof_mod_g");
+  prof_mod_g.allocate(1,2,1,ngroups,1,bottom,"prof_mod_g");
   #ifndef NO_AD_INITIALIZE
     prof_mod_g.initialize();
   #endif
-  sum_phi_p.allocate(1,2,1,3,1,bottom,"sum_phi_p");
+  sum_phi_p.allocate(1,2,1,ngroups,1,bottom,"sum_phi_p");
   #ifndef NO_AD_INITIALIZE
     sum_phi_p.initialize();
   #endif
-  sum_sum_phi_p.allocate(1,2,1,3,"sum_sum_phi_p");
+  sum_sum_phi_p.allocate(1,2,1,ngroups,"sum_sum_phi_p");
   #ifndef NO_AD_INITIALIZE
     sum_sum_phi_p.initialize();
   #endif
@@ -145,10 +146,12 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   OXYRESP3.allocate(0.,100,-1,"OXYRESP3");
   OXYLIM3.allocate(0.,1,-1,"OXYLIM3");
   Ta.allocate(4000,7000,-1,"Ta");
-  SIGM_LIGHT2.allocate(1e-7,1e-2,1,"SIGM_LIGHT2");
-  SIGM_LIGHT3.allocate(1e-7,1e-2,1,"SIGM_LIGHT3");
-  OPT_LIGHT2.allocate(1.e-7,1.e-2,1,"OPT_LIGHT2");
+  SIGM_LIGHT2.allocate(1e-8,1e-1,1,"SIGM_LIGHT2");
+  SIGM_LIGHT3.allocate(1e-8,1e-2,1,"SIGM_LIGHT3");
+  SIGM_LIGHT4.allocate(1e-11,1e-8,1,"SIGM_LIGHT4");
+  OPT_LIGHT2.allocate(1.e-8,1.e-2,1,"OPT_LIGHT2");
   OPT_LIGHT3.allocate(1.e-7,1.e-2,1,"OPT_LIGHT3");
+  OPT_LIGHT4.allocate(1.e-11,1.e-8,1,"OPT_LIGHT4");
   ADVz3.allocate(1e-2,100,1,"ADVz3");
   ADVz2.allocate(1e-2,100,1,"ADVz2");
   DIFFz3.allocate(1e-2,200,1,"DIFFz3");
@@ -159,51 +162,52 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   ko2_max.allocate(0,2,-1,"ko2_max");
   a_o2.allocate(5,5,-1,"a_o2");
   EYE_DIAM_ALLOM1.allocate(0.,0.,-1,"EYE_DIAM_ALLOM1");
-  EYE_DIAM_ALLOM2.allocate(0.0,0.5,-1,"EYE_DIAM_ALLOM2");
-  EYE_DIAM_ALLOM3.allocate(0.0,0.5,-1,"EYE_DIAM_ALLOM3");
-  SIGM_TCOR0.allocate(0.01,1,1,"SIGM_TCOR0");
-  SIGM_LIGHT1.allocate(1e-2,1e4,1,"SIGM_LIGHT1");
-  OPT_LIGHT1.allocate(1e-2,1e3,1,"OPT_LIGHT1");
-  ADVz1.allocate(0.1,100,1,"ADVz1");
-  DIFFz1.allocate(0.01,200,1,"DIFFz1");
+  EYE_DIAM_ALLOM2.allocate(0.0,1,1,"EYE_DIAM_ALLOM2");
+  EYE_DIAM_ALLOM3.allocate(0.0,1,1,"EYE_DIAM_ALLOM3");
+  SIGM_TCOR0.allocate(0.01,1,-1,"SIGM_TCOR0");
+  SIGM_LIGHT1.allocate(1e-2,1e4,-1,"SIGM_LIGHT1");
+  OPT_LIGHT1.allocate(1e-2,1e3,-1,"OPT_LIGHT1");
+  ADVz1.allocate(0.1,100,-1,"ADVz1");
+  DIFFz1.allocate(0.01,200,-1,"DIFFz1");
     ivector ph(1,nb_clstr);
     ph.fill_seqadd(2,1);
     dvector a_min(1,nb_clstr);
     a_min.fill_seqadd(1,0);
-    a_min = 1.e-9 * a_min;
+    a_min = 0. * a_min;
     dvector a_max(1,nb_clstr);
     a_max.fill_seqadd(1,0);
-    a_max = 1.e-3 * a_max;
+    a_max = 1. * a_max;
   nfactor.allocate(1e-5,1e-5,-1,"nfactor");
-  SIGM_LIGHT.allocate(1,3,"SIGM_LIGHT");
+  p.allocate(1,nb_clstr,a_min,a_max,ph,"p");
+  SIGM_LIGHT.allocate(1,ngroups,"SIGM_LIGHT");
   #ifndef NO_AD_INITIALIZE
     SIGM_LIGHT.initialize();
   #endif
-  OPT_LIGHT.allocate(1,3,"OPT_LIGHT");
+  OPT_LIGHT.allocate(1,ngroups,"OPT_LIGHT");
   #ifndef NO_AD_INITIALIZE
     OPT_LIGHT.initialize();
   #endif
-  ADVz.allocate(1,3,"ADVz");
+  ADVz.allocate(1,ngroups,"ADVz");
   #ifndef NO_AD_INITIALIZE
     ADVz.initialize();
   #endif
-  DIFFz.allocate(1,3,"DIFFz");
+  DIFFz.allocate(1,ngroups,"DIFFz");
   #ifndef NO_AD_INITIALIZE
     DIFFz.initialize();
   #endif
-  EYE_DIAM_ALLOM.allocate(1,3,"EYE_DIAM_ALLOM");
+  EYE_DIAM_ALLOM.allocate(1,ngroups,"EYE_DIAM_ALLOM");
   #ifndef NO_AD_INITIALIZE
     EYE_DIAM_ALLOM.initialize();
   #endif
-  ratio_adv_diff.allocate(1,3,1,L_size,"ratio_adv_diff");
+  ratio_adv_diff.allocate(1,ngroups,1,L_size,"ratio_adv_diff");
   #ifndef NO_AD_INITIALIZE
     ratio_adv_diff.initialize();
   #endif
-  diffz.allocate(1,3,1,L_size,"diffz");
+  diffz.allocate(1,ngroups,1,L_size,"diffz");
   #ifndef NO_AD_INITIALIZE
     diffz.initialize();
   #endif
-  ratio_adv_diff2.allocate(1,3,1,L_size,"ratio_adv_diff2");
+  ratio_adv_diff2.allocate(1,ngroups,1,L_size,"ratio_adv_diff2");
   #ifndef NO_AD_INITIALIZE
     ratio_adv_diff2.initialize();
   #endif
@@ -215,7 +219,7 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   #ifndef NO_AD_INITIALIZE
     OXYLIM.initialize();
   #endif
-  eyesurf.allocate(1,3,1,L_size,"eyesurf");
+  eyesurf.allocate(1,ngroups,1,L_size,"eyesurf");
   #ifndef NO_AD_INITIALIZE
     eyesurf.initialize();
   #endif
@@ -266,9 +270,11 @@ void model_parameters::userfunction(void)
   OPT_LIGHT[1] = OPT_LIGHT1;
   OPT_LIGHT[2] = OPT_LIGHT2;
   OPT_LIGHT[3] = OPT_LIGHT3;
+  OPT_LIGHT[4] = OPT_LIGHT4;
   SIGM_LIGHT[1] = SIGM_LIGHT1;
   SIGM_LIGHT[2] = SIGM_LIGHT2;
   SIGM_LIGHT[3] = SIGM_LIGHT3;
+  SIGM_LIGHT[4] = SIGM_LIGHT4;
   OXYRESP[1] = OXYRESP2;
   OXYRESP[2] = OXYRESP3;
   OXYLIM[1] = OXYLIM2;
@@ -276,12 +282,15 @@ void model_parameters::userfunction(void)
   ADVz[1] = ADVz1;
   ADVz[2] = ADVz2;
   ADVz[3] = ADVz3;
+  ADVz[4] = ADVz3;
   DIFFz[1] = DIFFz1;
   DIFFz[2] =DIFFz2;
   DIFFz[3] =DIFFz3;
+  DIFFz[4] =DIFFz3;
   EYE_DIAM_ALLOM[1] = EYE_DIAM_ALLOM1;
   EYE_DIAM_ALLOM[2] = EYE_DIAM_ALLOM2;
   EYE_DIAM_ALLOM[3] = EYE_DIAM_ALLOM3;
+  EYE_DIAM_ALLOM[4] = EYE_DIAM_ALLOM3;
   dvar_vector nfactor_(1,2);
   nfactor_[1] = 1.0;
   nfactor_[2] = nfactor;
@@ -301,7 +310,7 @@ void model_parameters::userfunction(void)
        read_file(pathway, "par_n_" + nb + ".txt",light_n,bottom);
        read_file(pathway, "sA_d_" + nb + ".txt",sA_d,bottom); // Déjà normalisés
        read_file(pathway, "sA_n_" + nb + ".txt",sA_n,bottom); // Déjà normalisés
-      for(int g(1); g<=3;g++){
+      for(int g(1); g<=ngroups;g++){
 		for(int dn(1); dn<=2; dn++){
 				dvariable temper_1;
 				dvariable temper_z;
@@ -334,6 +343,7 @@ void model_parameters::userfunction(void)
 					get_temp_oxy_pref(temper_pref, oxy_pref,temper_1,temper_z, oxy_z, Ta, Tref, SIGM_TCOR0, OXYRESP, OXYLIM, z );
 					get_light_pref(light_pref, light, SIGM_LIGHT, OPT_LIGHT, DL, nfactor_, EPS, eyesurf[g][s], oxy_m, ko2_max, a_o2, dn, g, z, s);
 					calculate_habitat_env(habitat_env, light_pref, temper_pref, oxy_pref, profile, profiletot, ratio_adv_diff2, diffz, ratio_adv_diff, DzPHY, dn, g, z, s );
+					//cout << "i_clstr = " << i_clstr << " g= " << g << " dn= "<< dn << " z= "<< z << endl;
 				} // boucle z
 				calculate_normalized_profile(profile_norm, profile, profiletot, dn, g, s, bottom );
 			} // boucle s
@@ -375,13 +385,10 @@ void model_parameters::userfunction(void)
 		//cout << "g = " << str(g) << endl;
       }// fin de la boucle g
 		// La fonction objective
-		f += calculate_obj_function(sA_d,sA_n, prof_mod_g, bottom, alpha1[nb_],alpha3[nb_]);
+		f += calculate_obj_function(sA_d,sA_n, prof_mod_g, bottom, alpha1[nb_],alpha3[nb_],p[i_clstr]);//p[i_clstr]
 		//cout << f << endl;
 	char period[] = "dn";
-	ivector toto(1,2);
-	toto[1] = 4;
-	toto[2] = 4; 
-	write_outputs3D("outputs/" + project +  "/" + zone +  "/profile_norm_by_group_" + nb ,prof_mod_g, bottom, period);
+	write_outputs3D("outputs/" + project +  "/" + zone +  "/profile_norm_by_group_" + nb ,prof_mod_g, bottom,ngroups, period);
 	//write_outputs4D("outputs/" + project +  "/" + zone +  "/light_pref_" + nb ,light_pref, bottom,toto,period);
 	 //write_outputs2D_dnz("outputs/" + project  + "/" + zone + "/oxy_pref_" + nb , oxy_pref);
     } // boucle clstr

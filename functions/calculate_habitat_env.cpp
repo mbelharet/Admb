@@ -9,6 +9,7 @@ void calculate_habitat_env(dvar4_array& habitat_env, dvar4_array light_pref, dva
 					habitat_env[2][1][z][s] = habitat_env[1][1][z][s];
                                 	habitat_env[dn][2][z][s] = light_pref[dn][2][z][s] * oxy_pref[2][z];
                                 	habitat_env[dn][3][z][s] = light_pref[1][3][z][s] * oxy_pref[3][z];
+					habitat_env[dn][4][z][s] = light_pref[1][4][z][s] * oxy_pref[4][z];
 
 				
 					 profile[dn][g][z][s]=exp(ratio_adv_diff2[g][s]*log((habitat_env[dn][g][z][s]*diffz[g][s]+DzPHY) / (habitat_env[dn][g][1][s] * diffz[g][s] + DzPHY)) - ratio_adv_diff[g][s] * (habitat_env[dn][g][z][s] - habitat_env[dn][g][1][s])); 

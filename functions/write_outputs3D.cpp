@@ -2,13 +2,16 @@
 
 using namespace std;
 
-void write_outputs3D(adstring filename, dvar3_array var,int bottom, char period[]){
+void write_outputs3D(adstring filename, dvar3_array var,int bottom, int ngroups, char period[]){
 
 	if((strcmp(period,"d"))==0 || (strcmp(period,"dn"))==0){
    
         	ofstream monFlux(filename + "_d" +".txt");
         		for(int z=1; z<=bottom;z++){
-            			monFlux << var[1][1][z] << " " << var[1][2][z] << " " << var[1][3][z] << endl;
+				for(int g(1);g<=ngroups;g++){
+            				monFlux << var[1][g][z] << " ";
+				}
+				monFlux <<endl;
         		 }
 		monFlux.close();
 
@@ -17,7 +20,10 @@ void write_outputs3D(adstring filename, dvar3_array var,int bottom, char period[
 
 		ofstream monFlux(filename + "_n" +".txt");
                         for(int z=1; z<=bottom;z++){
-                                monFlux << var[2][1][z] << " " << var[2][2][z] << " " << var[2][3][z] << endl;
+				for(int g(1);g<=ngroups ; g++){
+                                        monFlux << var[2][g][z] << " ";
+                                }
+                                monFlux <<endl;
                          }
 		monFlux.close();
 

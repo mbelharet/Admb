@@ -4,7 +4,7 @@ void calculate_adv_diff_bis(dvar_matrix& ratio_adv_diff, dvar_matrix& diffz, dva
 	 
 	for(int l(1);l<=L.size();l++){
 		double len = L[l];
-		for(int g(1);g<=3;g++){
+		for(int g(1);g<=ADVz.size();g++){
         		ratio_adv_diff[g][l] = (ADVz[g] / DIFFz[g])/ len;
        			diffz[g][l] = DIFFz[g] * square(len);
        			ratio_adv_diff2[g][l] = (ADVz[g] * len * (diffz[g][l] + DzPHY)) / square(diffz[g][l]);
