@@ -43,9 +43,9 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   zone.allocate("zone");
   Tref.allocate("Tref");
   EPS.allocate("EPS");
-  p.allocate("p");
+  p_.allocate("p_");
   DzPHY.allocate("DzPHY");
-  len.allocate(1,9,"len");
+  len.allocate(1,10,"len");
   nb_site_t.allocate("nb_site_t");
   a1.allocate("a1");
   a2.allocate("a2");
@@ -146,14 +146,14 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   OXYRESP3.allocate(0.,100,-1,"OXYRESP3");
   OXYLIM3.allocate(0.,1,-1,"OXYLIM3");
   Ta.allocate(4000,7000,-1,"Ta");
-  SIGM_LIGHT2.allocate(1e-8,1e-1,1,"SIGM_LIGHT2");
+  SIGM_LIGHT2.allocate(1e-8,1e-2,1,"SIGM_LIGHT2");
   SIGM_LIGHT3.allocate(1e-8,1e-2,1,"SIGM_LIGHT3");
   SIGM_LIGHT4.allocate(1e-11,1e-8,1,"SIGM_LIGHT4");
   OPT_LIGHT2.allocate(1.e-8,1.e-2,1,"OPT_LIGHT2");
   OPT_LIGHT3.allocate(1.e-7,1.e-2,1,"OPT_LIGHT3");
   OPT_LIGHT4.allocate(1.e-11,1.e-8,1,"OPT_LIGHT4");
-  ADVz3.allocate(1e-2,100,1,"ADVz3");
-  ADVz2.allocate(1e-2,100,1,"ADVz2");
+  ADVz3.allocate(1e-2,200,1,"ADVz3");
+  ADVz2.allocate(1e-2,200,1,"ADVz2");
   DIFFz3.allocate(1e-2,200,1,"DIFFz3");
   DIFFz2.allocate(1e-2,200,1,"DIFFz2");
   c1.allocate(0,2,-1,"c1");
@@ -161,24 +161,25 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   Coxy.allocate(0,5,-1,"Coxy");
   ko2_max.allocate(0,2,-1,"ko2_max");
   a_o2.allocate(5,5,-1,"a_o2");
-  EYE_DIAM_ALLOM1.allocate(0.,0.,-1,"EYE_DIAM_ALLOM1");
-  EYE_DIAM_ALLOM2.allocate(0.0,1,1,"EYE_DIAM_ALLOM2");
-  EYE_DIAM_ALLOM3.allocate(0.0,1,1,"EYE_DIAM_ALLOM3");
+  EYE_DIAM_ALLOM1.allocate(0.,1.,2,"EYE_DIAM_ALLOM1");
+  EYE_DIAM_ALLOM2.allocate(0.0,1,2,"EYE_DIAM_ALLOM2");
+  EYE_DIAM_ALLOM3.allocate(0.0,1,2,"EYE_DIAM_ALLOM3");
   SIGM_TCOR0.allocate(0.01,1,-1,"SIGM_TCOR0");
   SIGM_LIGHT1.allocate(1e-2,1e4,-1,"SIGM_LIGHT1");
   OPT_LIGHT1.allocate(1e-2,1e3,-1,"OPT_LIGHT1");
   ADVz1.allocate(0.1,100,-1,"ADVz1");
   DIFFz1.allocate(0.01,200,-1,"DIFFz1");
-    ivector ph(1,nb_clstr);
-    ph.fill_seqadd(2,1);
-    dvector a_min(1,nb_clstr);
+    ivector ph(1,nb_clstr); //(1,nb_clstr); 
+    ph.fill_seqadd(2,0); //c (2,1)
+    dvector a_min(1,nb_clstr); //(1,nb_clstr);
     a_min.fill_seqadd(1,0);
     a_min = 0. * a_min;
-    dvector a_max(1,nb_clstr);
+    dvector a_max(1,nb_clstr); //(1,nb_clstr);
     a_max.fill_seqadd(1,0);
     a_max = 1. * a_max;
   nfactor.allocate(1e-5,1e-5,-1,"nfactor");
   p.allocate(1,nb_clstr,a_min,a_max,ph,"p");
+  beta.allocate(1,bottom,a_min,a_max,-1,"beta");
   SIGM_LIGHT.allocate(1,ngroups,"SIGM_LIGHT");
   #ifndef NO_AD_INITIALIZE
     SIGM_LIGHT.initialize();
@@ -326,7 +327,7 @@ void model_parameters::userfunction(void)
 					light = light_d;
 					DL = 1- DL_n[nb_];
 				}
-			for(int s(3); s<=7; s++){ //L_size
+			for(int s(1); s<=L_size; s++){ //L_size
 				profiletot[dn][g][s] = 0 ;
 				for(int z(1); z<=bottom; z++){
 					if(dn==1){
@@ -371,8 +372,9 @@ void model_parameters::userfunction(void)
 			sum_sum_phi_p[dn][g] = 0.0;
 			for(int z(1); z<=bottom; z++){
 				sum_phi_p[dn][g][z] = 0.0;
-				for(int s(3); s<=7; s++){
-					sum_phi_p[dn][g][z] += phi[z][s] * profile_norm[dn][g][z][s]; //phi[z][s]
+				for(int s(1); s<=L_size; s++){
+					dvariable toto = pow(len[s]/len[1],6*beta[z]); //beta[z]
+					sum_phi_p[dn][g][z] += phi[z][s] *toto * profile_norm[dn][g][z][s]; //phi[z][s]
 				} // boucle s
 				sum_sum_phi_p[dn][g] += sum_phi_p[dn][g][z];
 			} // boucle z

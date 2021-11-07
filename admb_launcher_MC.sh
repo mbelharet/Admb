@@ -3,13 +3,13 @@
 #Compilation
 admb apecosm_size.tpl
 
-project='MALASPINA' #'MALASPINA' #'MIXED'
+project='MALASPINA' #'IMOS' #'MALASPINA' #'MIXED'
 zone='all' # 'Nomz' or 'omz' or 'all'
 MC=0
 #sed -i "14s/.*/$zone/" apecosm.dat
 if [ $zone = 'all' ];then
 	nb_site_MALASPINA=123
-	nb_site_IMOS=316
+	nb_site_IMOS=228
 	nb_site_PIRATA=162
 	let "nb_site_MIXED=$nb_site_MALASPINA + $nb_site_IMOS + $nb_site_PIRATA"
 elif [ $zone = 'Nomz' ];then
@@ -23,7 +23,7 @@ elif [ $zone = 'omz' ];then
 fi
 
 nb_site_t_MALASPINA=124
-nb_site_t_IMOS=739
+nb_site_t_IMOS=228
 nb_site_t_PIRATA=167
 nb_site_t_MIXED=$nb_site_MIXED
 

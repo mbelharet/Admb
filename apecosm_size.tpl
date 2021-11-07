@@ -33,11 +33,11 @@ DATA_SECTION
   init_adstring zone
   init_number Tref
   init_number EPS
-  init_number p
+  init_number p_
   //init_number nfactor
   init_number DzPHY
   //init_number EYE_DIAM_ALLOM1
-  init_vector len(1,9)
+  init_vector len(1,10)
   //init_number SIGM_TCOR0
   //init_number SIGM_LIGHT1
   //init_number OPT_LIGHT1
@@ -123,35 +123,35 @@ PARAMETER_SECTION
    matrix sum_sum_phi_p(1,2,1,ngroups)
    
 
-   init_bounded_number OXYRESP2(0.,100,1); //WOA (0.,100,1)
-   init_bounded_number OXYLIM2(0.01,1,1); // WOA (0,3,1)
+   init_bounded_number OXYRESP2(0.,100,1); //c
+   init_bounded_number OXYLIM2(0.01,1,1); // c
    init_bounded_number OXYRESP3(0.,100,-1); //WOA (0.,100,-1)
    init_bounded_number OXYLIM3(0.,1,-1); 
    init_bounded_number Ta(4000,7000,-1);
 
-   init_bounded_number SIGM_LIGHT2(1e-8,1e-1,1) // WOA  (1.e-8,1.e-1,1) ; NEMO (1e-8,1e-2,1)
-   init_bounded_number SIGM_LIGHT3(1e-8,1e-2,1) // WOA  (1.e-14,1.e-7,1) ; NEMO (1e-14,1e-7,1)
-   init_bounded_number SIGM_LIGHT4(1e-11,1e-8,1)
-   init_bounded_number OPT_LIGHT2(1.e-8,1.e-2,1) // WOA (1.e-8,1.e-1) ; NEMO (1.e-8,1.e-2,1)
-   init_bounded_number OPT_LIGHT3(1.e-7,1.e-2,1) // WOA  (1.e-14,1.e-7,1); NEMO (1.e-14,1.e-7,1)
-   init_bounded_number OPT_LIGHT4(1.e-11,1.e-8,1)
+   init_bounded_number SIGM_LIGHT2(1e-8,1e-2,1) //c
+   init_bounded_number SIGM_LIGHT3(1e-8,1e-2,1) //c
+   init_bounded_number SIGM_LIGHT4(1e-11,1e-8,1) //c
+   init_bounded_number OPT_LIGHT2(1.e-8,1.e-2,1) //c
+   init_bounded_number OPT_LIGHT3(1.e-7,1.e-2,1) //c
+   init_bounded_number OPT_LIGHT4(1.e-11,1.e-8,1) //c
 
-   init_bounded_number ADVz3(1e-2,100,1) //WOA (1e-1,100,1) ; NEMO (1e-2,100,1)
-   init_bounded_number ADVz2(1e-2,100,1) //WOA (1e-1,100,1); NEMO (1e-2,100,1)
-   init_bounded_number DIFFz3(1e-2,200,1)//WOA (1e-1,200,1); NEMO (1e-2,200,1)
-   init_bounded_number DIFFz2(1e-2,200,1) //WOA (1e-1,200,1); NEMO (1e-2,200,1)
+   init_bounded_number ADVz3(1e-2,200,1) //c
+   init_bounded_number ADVz2(1e-2,200,1) //c
+   init_bounded_number DIFFz3(1e-2,200,1)//c
+   init_bounded_number DIFFz2(1e-2,200,1) //c
 
-   init_bounded_number c1(0,2,-1) // WOA (0,2,1) ; NEMO (0,2,1):1
+   init_bounded_number c1(0,2,-1)  
 
-   init_bounded_number c2(0,2,-1) //WOA (0,2,1) ; NEMO (0,2,1) 
+   init_bounded_number c2(0,2,-1) 
 
-   init_bounded_number Coxy(0,5,-1) //WOA (0,1,1)
-   init_bounded_number ko2_max(0,2,-1);  //(0,2,1);
-   init_bounded_number a_o2(5,5,-1); //(1,10,1);
+   init_bounded_number Coxy(0,5,-1)
+   init_bounded_number ko2_max(0,2,-1)
+   init_bounded_number a_o2(5,5,-1)
 
-   init_bounded_number EYE_DIAM_ALLOM1(0.,0.,-1)
-   init_bounded_number EYE_DIAM_ALLOM2(0.0,1,1)
-   init_bounded_number EYE_DIAM_ALLOM3(0.0,1,1)
+   init_bounded_number EYE_DIAM_ALLOM1(0.,1.,2)
+   init_bounded_number EYE_DIAM_ALLOM2(0.0,1,2) //c
+   init_bounded_number EYE_DIAM_ALLOM3(0.0,1,2) //c
 
    init_bounded_number SIGM_TCOR0(0.01,1,-1)
    init_bounded_number SIGM_LIGHT1(1e-2,1e4,-1)
@@ -160,21 +160,24 @@ PARAMETER_SECTION
    init_bounded_number DIFFz1(0.01,200,-1)
 
  LOC_CALCS
-    ivector ph(1,nb_clstr);
-    ph.fill_seqadd(2,1);
-    dvector a_min(1,nb_clstr);
+    ivector ph(1,nb_clstr); //(1,nb_clstr); 
+    ph.fill_seqadd(2,0); //c (2,1)
+    dvector a_min(1,nb_clstr); //(1,nb_clstr);
     a_min.fill_seqadd(1,0);
     a_min = 0. * a_min;
 
-    dvector a_max(1,nb_clstr);
+    dvector a_max(1,nb_clstr); //(1,nb_clstr);
     a_max.fill_seqadd(1,0);
     a_max = 1. * a_max;
  END_CALCS
    
    //cout << "ph[1] = " << ph[1] << endl;
    init_bounded_number nfactor(1e-5,1e-5,-1); //(1e-7,1e-4,1);
-   init_bounded_number_vector p(1,nb_clstr,a_min,a_max,ph);   
-   //init_bounded_number p(0.5,0.5,-1);
+   init_bounded_number_vector p(1,nb_clstr,a_min,a_max,ph);//ph);   
+   //init_bounded_number p(0.,1,-1);
+   init_bounded_number_vector beta(1,bottom,a_min,a_max,-1);
+   //init_bounded_number beta(-1,-1,-1);
+   
       
       
    vector SIGM_LIGHT(1,ngroups)
@@ -299,7 +302,7 @@ PROCEDURE_SECTION
 					DL = 1- DL_n[nb_];
 				}
 					
-			for(int s(3); s<=7; s++){ //L_size
+			for(int s(1); s<=L_size; s++){ //L_size
 
 				profiletot[dn][g][s] = 0 ;
 
@@ -362,9 +365,11 @@ PROCEDURE_SECTION
 			for(int z(1); z<=bottom; z++){
 
 				sum_phi_p[dn][g][z] = 0.0;
+				
 
-				for(int s(3); s<=7; s++){
-					sum_phi_p[dn][g][z] += phi[z][s] * profile_norm[dn][g][z][s]; //phi[z][s]
+				for(int s(1); s<=L_size; s++){
+					dvariable toto = pow(len[s]/len[1],6*beta[z]); //beta[z]
+					sum_phi_p[dn][g][z] += phi[z][s] *toto * profile_norm[dn][g][z][s]; //phi[z][s]
 					
 				} // boucle s
 
@@ -394,10 +399,6 @@ PROCEDURE_SECTION
 
     } // boucle clstr
 
-
-
-
- 
 
 
  //      write_outputs2D_dnz("outputs/" + project  + "/" + zone + "/profile_norm_total_" + nb + "_" + ss, profile_g_comb);
